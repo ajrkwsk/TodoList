@@ -16,7 +16,11 @@ $todoInput = document.querySelector('.todoInput');
 $addBtn = document.querySelector('.addBtn');
 $ulList = document.querySelector('.ulList');
 $alertInfo = document.querySelector('.alertInfo');
-$deleteBtn = document.getElementsByClassName('.delete');
+}
+
+const prepereDOMEvents = () => {
+    $addBtn.addEventListener('click', addNewTask);
+    $ulList.addEventListener('click', checkClick);
 }
 
 const addNewTask = () => {
@@ -43,13 +47,20 @@ const createTools = () => {
     toolPanel.appendChild($deleteBtn);
 }
 
+const checkClick = e => {
+    if(e.target.closest('button').className === 'delete'){
+        deleteTask(e);
+    }
+}
+
+const deleteTask = e => {
+    const deleteTodo = e.target.closest('li');
+    deleteTodo.remove();
+}
+
 function changeSizeTodoList() {
     $height += 70;
     $ulList.style.height = $height + 'px';
-}
-
-const prepereDOMEvents = () => {
-    $addBtn.addEventListener('click', addNewTask);
 }
 
 document.addEventListener('DOMContentLoaded', main);
